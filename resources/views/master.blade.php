@@ -3,7 +3,7 @@
 <head>
 	<title>TresureHunt-Home</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="fragment" content="!">
+	<meta content="{{csrf_token()}}" name="csrf-token" />
 	<link rel="shortcut icon" href="/assets/images/tcf.ico">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css">

@@ -1,0 +1,30 @@
+body{
+	background-color: #eee;
+}
+
+.loginbox{
+
+	margin-top:30vh;
+}
+
+.event{
+	background-color: #fff;
+	min-height: 150px;
+	border-radius: 6px;
+	padding:5px;
+}
+.event-pic{
+	height:150px;
+	width:150px;
+}
+
+.event-div{
+}
+
+.student{
+	background-color: #fff;
+	margin:4px;
+	border-radius:6px;
+	padding:7px;
+}
+

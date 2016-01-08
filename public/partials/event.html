@@ -7,7 +7,7 @@
 			<div class="event-profile-pic event-profile-pic-absolute card-2" style="background-image:url({{data.event_image}})">
 			</div>
 			<div class="register-div" ng-if="logged_in">
-				<button class="btn btn-danger btn-lg" ng-if="!data.registered" ng-click="register()">Register Now</button>
+				<button class="btn btn-danger btn-lg" ng-if="!data.registered && data.timestamp < endtime[1]" ng-click="register()">Register Now</button>
 				<button class="btn btn-danger btn-lg disabled" ng-if="data.registered">Registered</button>
 				<span ng-repeat="(round_no,round) in data.rounds"><a class="btn btn-success btn-lg"  ng-if="data.registered && round.qualified && (round.date_time < data.timestamp && data.timestamp < endtime[round_no])" href="#/test/{{data.slug}}/{{round_no}}">Enter</a></span>
 			</div>

@@ -3,15 +3,27 @@
 <head>
 	<title>TresureHunt-Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="{{csrf_token()}}" name="csrf-token" />
 	<link rel="shortcut icon" href="assets/images/tcf.ico">
-	<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/selectize/selectize.css">
-	<link rel="stylesheet" type="text/css" href="assets/custom/style-login.css">
+	<link rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/selectize/selectize.css">
+	<link rel="stylesheet" type="text/css" href="/assets/custom/style-login.css">
 </head>
 <body>
 
+	<div class='loader-container' ng-show="loading">
+	  <div class='loader'>
+	    <div class='loader--dot'></div>
+	    <div class='loader--dot'></div>
+	    <div class='loader--dot'></div>
+	    <div class='loader--dot'></div>
+	    <div class='loader--dot'></div>
+	    <div class='loader--dot'></div>
+	    <div class='loader--text'></div>
+	  </div>
+	</div>
 
-	<div class="banner" ng-init="sidebar_decider.sidebar = 'login'">
+	<div class="banner" ng-init="sidebar_decider.sidebar = 'login'" ng-hide="loading">
 		<div class="banner-logo">
 
 		</div>
@@ -20,8 +32,8 @@
 
 			  <!-- Nav tabs -->
 				<ul class="nav nav-tabs">
-					<li ng-class="{active: sidebar_decider.sidebar == 'login'}"><a ng-click="sidebar_decider.sidebar = 'login'">Login</a></li>
-					<li ng-class="{active: sidebar_decider.sidebar == 'register'}"><a ng-click="sidebar_decider.sidebar = 'register'">Register</a></li>
+					<li style="cursor:pointer" ng-class="{active: sidebar_decider.sidebar == 'login'}"><a ng-click="sidebar_decider.sidebar = 'login'">Login</a></li>
+					<li style="cursor:pointer" ng-class="{active: sidebar_decider.sidebar == 'register'}"><a ng-click="sidebar_decider.sidebar = 'register'">Register</a></li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -34,7 +46,7 @@
 
 							<label for="password">Password</label>
 							<input type="password" class="form-control" id="password" placeholder="Password" ng-model="password" required>
-							<a ng-click="sidebar_decider.sidebar = 'forgot_password'">Forgot Password?</a><br>
+							<a ng-click="sidebar_decider.sidebar = 'forgot_password'" style="cursor:pointer">Forgot Password?</a><br><br>
 
 							<input type="submit" class="btn btn-primary" value="Login" >
 
@@ -145,6 +157,26 @@
 				angular.element('#Modal').modal('show');
 			};
 		})
+
+
+
+		app.config(function($httpProvider){
+			$httpProvider.interceptors.push('loader');
+		});
+
+		app.service('loader',function($rootScope){
+
+			this.request = function(config){
+				$rootScope.loading = true;
+				config.data._token = $("meta[name='csrf-token']").attr('content');
+				return config;
+			}
+
+			this.response = function(response){
+				$rootScope.loading = false;
+				return response;
+			}
+		});
 
 		app.controller('loginController',function($scope,$rootScope,$http)
 		{

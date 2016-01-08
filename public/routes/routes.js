@@ -48,6 +48,10 @@ app.service('loader',function($rootScope){
 
 	this.request = function(config){
 		$rootScope.loading = true;
+		if(config.data)
+		{
+			config.data._token = $("meta[name='csrf-token']").attr('content');
+		}
 		return config;
 	}
 

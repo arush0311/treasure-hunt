@@ -43,3 +43,11 @@ Route::get('/apiv1/show_test/{event_slug}/{round_no}/','TestController@show_test
 
 Route::post('apiv1/submit_test/{event_slug}/{round_no}/','TestController@submit_test');
 
+/***************************************** Admin Actions ************************************/
+
+Route::match(['get', 'post'],'/admin/login','AdminController@login');
+Route::match(['get', 'post'],'/admin/home','AdminController@home');
+Route::post('/admin/logout','AdminController@logout');
+Route::get('/admin/students','AdminController@students');
+
+
