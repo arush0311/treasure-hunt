@@ -1,0 +1,96 @@
+<div class="container">
+	<div class="row">
+		<div class="event-background card-2" style="background-image:url({{data.background_image}})">
+			<div class="event-name">
+				{{data.name}}
+			</div>
+			<div class="event-profile-pic event-profile-pic-absolute card-2" style="background-image:url({{data.event_image}})">
+			</div>
+			<div class="register-div" ng-if="logged_in">
+				<button class="btn btn-danger btn-lg" ng-if="!data.registered" ng-click="register()">Register Now</button>
+				<button class="btn btn-danger btn-lg disabled" ng-if="data.registered">Registered</button>
+				<span ng-repeat="(round_no,round) in data.rounds"><a class="btn btn-success btn-lg"  ng-if="data.registered && round.qualified && (round.date_time < data.timestamp && data.timestamp < endtime[round_no])" href="#/test/{{data.slug}}/{{round_no}}">Enter</a></span>
+			</div>
+
+		</div>
+	</div>
+	<br>
+	<div class="row rounds-nav-wrapper">
+		<div class="rounds-nav">
+			<ul class="nav nav-tabs">
+			  <li role="presentation" ng-repeat="(round_no,round) in data.rounds" ng-class="{active:temp.round_selected == round_no}" ng-click="temp.round_selected = round_no"><a ng-href="#/event/{{data.slug}}">Round {{round_no}}</a></li>
+			</ul>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card-2 page-div">
+
+				<table class="table">
+					<thead>
+					<tr>
+						<th>
+							Date
+						</th>
+						<th>
+							Duration
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+							<em>{{data.rounds[temp.round_selected].date_time | date:'d MMM, yyyy hh:mm a'}} IST</em>
+						</td>
+						<td>
+							<em>{{data.rounds[temp.round_selected].duration}} Hour </em>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-offset-2 col-md-4">
+			<div class="page-div card-2 share-icons">
+				<a href="#"><img src="assets/images/Facebook.png" class="card-1"></a>
+				<a href="#"><img src="assets/images/Twitter.png"class="card-1"></a>
+				<a href="#"><img src="assets/images/Google-plus.png"class="card-1"></a>
+				<a href="#"><img src="assets/images/Instagram.png"class="card-1"></a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-7 ">
+			<div class="card-2 page-div">
+				<h4>Description</h4>
+				{{data.description}}
+				<br><hr>
+				
+				<h4>Rules</h4>
+				<p>There will be <b>{{data.rounds[temp.round_selected].no_of_questions}} MCQs</b> which one has to attempt in <b>{{data.rounds[temp.round_selected].duration}} hour(s)</b>. Each question carries <b>1 mark</b> and there will be <b>no negative marking</b>.</p>
+
+				<p>You will be ranked on the basis of the score you obtain. Incase of a tie the student who <b>submit first</b> will be ranked higher.</p>
+
+				<p ng-if="data.rounds[temp.round_selected].cutoff"><b>Top {{data.rounds[temp.round_selected].cutoff}}</b> students will proceed to the next round.</p>
+
+				<b>GOOD LUCK!</b>
+
+				<br><hr>
+
+				<h4>Prizes</h4>
+				{{data.prizes}}
+				<br><hr>
+				
+			</div>
+		</div>
+
+		<div class="col-md-3 col-md-offset-1">
+			<div class="card-2 page-div">
+				<h4>Created By</h4>
+				<b>{{data.creator_name}}</b><br>
+				<em>{{ data.creator_email}}</em>
+			</div>
+		</div>
+	</div>
+</div>

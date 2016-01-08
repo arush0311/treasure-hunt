@@ -1,0 +1,51 @@
+<div class="container">
+	<div class="row" ng-if="!errors.is">
+		<div class="col-md-8">
+			<h1>{{data.name}}<br><sub>Round {{data.round_no}}</sub></h1>
+		</div>
+		<div class="col-md-3 col-md-offset-1" >
+			<h3>Time Left: {{time_left|date:'HH:mm:ss':'+0000'}}</h3>
+		</div>
+		<div class="col-md-12">
+			<form id="test" onsubmit="return confirm('Are you sure you want to finish this round?');" ng-submit="submitTest()">
+
+				<div ng-repeat="(question_no,question) in data.questions" class="page-div card-2">
+					<b>Que {{question_no}}:</b> {{question.question}}<br><br>
+					<div style="padding:5px"><input type="radio" ng-model="answers[question_no]" value="{{question.option1}}" style="margin:0 !important"> {{ question.option1 }}</div>
+					<div style="padding:5px"><input type="radio" ng-model="answers[question_no]" value="{{question.option2}}" style="margin:0 !important"> {{ question.option2 }}</div>
+					<div style="padding:5px"><input type="radio" ng-model="answers[question_no]" value="{{question.option3}}" style="margin:0 !important"> {{ question.option3 }}</div>
+					<div style="padding:5px"><input type="radio" ng-model="answers[question_no]" value="{{question.option4}}" style="margin:0 !important"> {{ question.option4 }}</div>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Finish!</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      <b>{{errors.errorMessage}}</b> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      <b>{{errors.successMessage}}</b> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location = '#/home'">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

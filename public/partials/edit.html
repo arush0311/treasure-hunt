@@ -1,0 +1,80 @@
+<div class="row">
+			<div class="col-md-offset-1 col-md-3">
+				<div class="page-div card-2" ng-controller="ChangePasswordController">
+					<h3>Change Password</h3><hr>
+
+					<form class="form-group" ng-submit="changePassword()">
+
+						<div class="text-danger">{{error.password}}</div>
+						<div class="text-success">{{success.password}}</div>
+
+
+						<label for="password">Password</label>
+						<input type="password" class="form-control" id="password" placeholder="Old Password" ng-model="password" required>
+
+						<label for="new_password">New Password</label>
+						<input type="password" class="form-control" id="new_password" placeholder="New Password" ng-model="new_password" required>
+
+						<label for="repeat_new_password">Repeat New Password</label>
+						<input type="password" class="form-control" id="repeat_new_password" placeholder="Repeat New Password" ng-model="repeat_new_password" required>
+
+
+						<input type="submit" class="btn btn-primary" value="Submit" id="submit">
+
+
+
+					</form>
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="page-div card-2" ng-controller="EditProfileController">
+					<h3>{{name}}</h3><hr>
+
+					<form class="form-group" ng-submit="edit()">
+						<div class="row">
+						<div class="col-md-12" style="text-align:center">
+							<div class="text-danger">{{error.all}}</div>
+							<div class="text-success">{{success.all}}</div>
+						</div>
+
+							<div class="col-md-6">
+								
+
+								
+								<label for="college_name">College Name</label>
+								<input type="text" class="form-control" id="college_name" placeholder="College Name" ng-model="college_name" required>
+
+								<label for="city">City</label>
+								<input type="text" class="form-control" id="city" placeholder="City" ng-model="city" required>
+
+								<label for="branch">Branch</label>
+								<input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="branch" required>
+
+							</div>
+							<div class="col-md-6">
+								<label for="interests">Interests</label>
+								<selectize config='myConfig' options='options' ng-model="interests"></selectize>
+								</select>
+								<div class="text-danger">{{error.interests}}</div>
+
+								<label for="semester">Semester</label>
+								<select class="form-control" id="semester" ng-model="semester" required>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+								</select>
+							</div>
+						</div>
+						<input type="submit" class="btn btn-primary" value="Submit" id="submit">
+					
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>

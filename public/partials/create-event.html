@@ -1,0 +1,152 @@
+<form ng-submit="create()">
+<div class="row">
+	<div class="col-md-11">
+		<div class="card-2 page-div">
+			<h3>Create an event</h3><hr>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="event-background card-2" id="backgroundimg-target">
+						<div class="event-profile-pic event-profile-pic-absolute card-2" id="eventimg-target">
+						</div>
+					</div>
+					<br>
+					<label for="eventimg" class="btn btn-default">Choose Event Image</label>
+					<input class="fileinput" type="file" id="eventimg" accept="image/jpg, image/jpeg">
+
+
+
+					<label for="backgroundimg" class="btn btn-default">Choose Background Image</label>
+					<input class="fileinput" type="file" id="backgroundimg" accept="image/jpg, image/jpeg"><br>
+
+					<div class="text-danger" ng-if="errors.images">{{errors.images}}<br></div>
+					<em>(Please choose jpg/jpeg image with image size less than 2 MB)</em>
+					
+				</div>
+			</div><hr>
+			<div class="row">
+				<div class="col-md-12"><h3>Event Details</h3><hr></div>
+				<div class="col-md-6">
+					<label for="name">Name</label>
+					<input required type="text" class="form-control" id="name" placeholder="Name" ng-model="event.name">
+					<label for="category">Category</label>
+					<select required class="form-control" id="category" ng-model="event.category">
+						<option>Computer Science</option>
+						<option>Electronics</option>
+						<option>History</option>
+						<option>Others</option>
+					</select>
+
+					<label for="no_of_rounds">No. of Rounds</label>
+					<select required class="form-control" id="no_of_rounds" ng-model="event.no_of_rounds">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>
+
+					<label for="prizes">Prizes</label>
+					<textarea required rows="6" class="form-control" id="prizes" ng-model="event.prizes"></textarea>
+				</div>
+				<div class="col-md-6">
+					<label for="description">Description</label>
+					<textarea required rows="16" class="form-control" id="description" ng-model ="event.description"></textarea>
+				</div>
+			</div><hr>
+			<div class="roundsdiv" ng-repeat="round_no in range(event.no_of_rounds)" ng-repeat-finish>
+				<div class="row">
+				<div class="col-md-6">
+					<h3>Round {{round_no}}</h3>
+				</div>
+				<div class="col-md-6">
+					<b>No of questions</b>
+					<input required type='number' class="form-control" placeholder="No of questions" ng-model="rounds[round_no].no_of_questions">
+					<div class="text-danger">{{errors.rounds[round_no].no_of_questions}}<br></div>
+					<label for="date">Date</label>
+					<!-- <div class="dropdown">
+					    <a class="dropdown-toggle my-toggle-select{{round_no}}" id="dLabel{{round_no}}" role="button" data-toggle="dropdown" data-target="#" href="" aria-haspopup="true" aria-expanded="false">
+					        <div>
+					        	<i class="glyphicon glyphicon-calendar"> {{rounds[round_no].date|date:'dd-MM-yyyy hh:mm a'}}</i>
+					        </div>
+					    </a>
+					    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel{{round_no}}">
+					        <datetimepicker data-ng-model="rounds[round_no].date" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select{{round_no}}', minuteStep:30 }" data-before-render="beforeRenderDate($view, $dates, $leftDate, $upDate, $rightDate)">
+					        </datetimepicker>
+					    </ul>
+					</div><br> -->
+					<datepicker date-min-limit={{minDate}} date-format="yyyy-MM-dd" button-prev="<i class='glyphicon glyphicon-arrow-left'></i>" button-next="<i class='glyphicon glyphicon-arrow-right'></i>">
+					  <input required class="form-control" ng-model="rounds[round_no].date" type="text" style="background-color:#fff;cursor:pointer;" readonly>
+					</datepicker><br>
+					<div class="text-danger">{{errors.rounds[round_no].date}}<br></div>
+
+					<b>Time (24 hrs)</b><br>
+					<ng-timepicker ng-model="rounds[round_no].time" theme="blue"></ng-timepicker><br>
+
+					<br><br><b>Duration(in hrs)</b>
+					<select required class="form-control duration" ng-init="rounds[round_no].duration = '1'" ng-model="rounds[round_no].duration">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>
+					<div ng-if="round_no != event.no_of_rounds"><label for="cutoff">Cutoff</label>
+					<input required type="number" class="form-control" placeholder="Cutoff" ng-model="rounds[round_no].cutoff"></div>
+				</div>
+				</div>
+				<hr>
+				<div class="row">
+				<div class="col-md-12">
+					<div ng-repeat="question_no in range(rounds[round_no].no_of_questions)">
+
+						<b>Que.{{question_no}} </b><br><textarea required class="form-control" rows=2 ng-model="rounds[round_no].questions[question_no].question"></textarea>
+						<b>Options with Answer</b><br>
+
+						<input type="radio" value="{{rounds[round_no].questions[question_no].option1}}" ng-model="rounds[round_no].questions[question_no].answer"> <input required type="text" class="roundquestion form-control" placeholder="Option 1" ng-model="rounds[round_no].questions[question_no].option1"><br>
+
+
+						<input type="radio" value="{{rounds[round_no].questions[question_no].option2}}" ng-model="rounds[round_no].questions[question_no].answer"> <input required type="text" class="roundquestion form-control" placeholder="Option 2" ng-model="rounds[round_no].questions[question_no].option2"><br>
+
+						<input type="radio" value="{{rounds[round_no].questions[question_no].option3}}" ng-model="rounds[round_no].questions[question_no].answer"> <input required type="text" class="roundquestion form-control" placeholder="Option 3" ng-model="rounds[round_no].questions[question_no].option3"><br>
+
+						<input type="radio" value="{{rounds[round_no].questions[question_no].option4}}" ng-model="rounds[round_no].questions[question_no].answer"> <input required type="text" class="roundquestion form-control" placeholder="Option 4" ng-model="rounds[round_no].questions[question_no].option4"><br>
+
+						<div class="text-danger">{{errors.rounds[round_no].questions[question_no]}}<br></div>
+					</div><br>
+				</div>
+				</div>
+				<br>
+
+				</div>
+				<input type="submit" class="btn btn-primary" value="submit"> 
+
+			</div><hr>
+
+		</div>
+	</div>
+</div>
+</form>
+
+
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      <b>There were some problem with form submission. Please check all the fields. The incorrect fields will be marked by red.</b> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body" style="color:green">
+      <b>Congratulations! Your request for event creation has been is under process. You will be notified when the event is verified by the TCF team </b> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

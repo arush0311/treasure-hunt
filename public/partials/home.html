@@ -1,0 +1,31 @@
+<br><br>
+<div class="container row">
+	<div class="col-md-10">
+		<div class = "input-group">
+			<input type="text" class="form-control" id="search" placeholder="Search an event..." style="margin:0 !important">
+			<div class="input-group-btn">
+				<button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+			</div>
+		</div>
+	</div>
+</div>
+	<a href="#/create-event"><div class="add-button">+</div></a>
+
+<h3>Events according to your Interests :-</h3>
+<br>
+<div class="row">
+	<div class="event col-md-3 col-sm-3" ng-repeat="event in data"><a ng-href="#/event/{{event.slug}}" style="text-decoration:none">
+			<div class="card-1" style="min-height:470px">	
+			<div class="event-picture" style="background-image: url({{event.event_image }});"></div>
+
+			<div class="event-content">
+				<b>{{event.name}}</b><br>
+				<div ng-repeat="(round_no,round) in event.rounds">
+					<b>Round {{round_no}}</b><br>
+					<em>Time: {{round.date_time|date:'medium'}}<br>
+					Duration: {{round.duration}} hours<br></em>
+				</div>
+			</div>
+		</div>
+	</a></div>
+</div>
